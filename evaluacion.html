@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluación Física</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #1a1a1a;
+      color: #f9f9f9;
+      padding: 2rem;
+    }
+    h2 { color: #ffa726; }
+    label, select, input, button {
+      display: block;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      width: 100%;
+      background: #2c2c2c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      background: #ffa726;
+      color: #1a1a1a;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #fb8c00; color: #fff; }
+    a {
+      color: #ffa726;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 2rem;
+    }
+    #resultado {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #2c2c2c;
+      border-left: 5px solid #ffa726;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Evalúa tu Condición Física</h2>
+  <form id="formEvaluacion">
+    <label>Edad:</label>
+    <input type="number" id="edad" required min="5" max="100" />
+
+    <label>Sexo:</label>
+    <select id="sexo">
+      <option value="Femenino">Femenino</option>
+      <option value="Masculino">Masculino</option>
+    </select>
+
+    <label>¿Cuántas veces haces ejercicio a la semana?</label>
+    <select id="ejercicio">
+      <option value="0">0</option>
+      <option value="1-2">1-2</option>
+      <option value="3-4">3-4</option>
+      <option value="5+">5+</option>
+    </select>
+
+    <label>¿Tienes bicicleta de montaña?</label>
+    <select id="bicicleta">
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>¿Puedes caminar 30 min sin agotarte?</label>
+    <select id="caminar">
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    <button type="submit">Evaluar</button>
+  </form>
+
+  <div id="resultado"></div>
+  <a href="index.html">⬅ Volver al inicio</a>
+
+  <script>
+    document.getElementById("formEvaluacion").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const edad = parseInt(document.getElementById("edad").value);
+      const sexo = document.getElementById("sexo").value;
+      const ejercicio = document.getElementById("ejercicio").value;
+      const bicicleta = document.getElementById("bicicleta").value;
+      const caminar = document.getElementById("caminar").value;
+
+      let mensaje = `Sexo: ${sexo}\n`;
+
+      if (edad < 18 || edad > 55) {
+        mensaje += "⚠️ Se recomienda una evaluación médica antes de iniciar actividades intensas.\n\n";
+      }
+
+      if (ejercicio === "0" || caminar === "No") {
+        mensaje += "🏁 Nivel Básico: Inicia con caminatas suaves y rutas planas como Ciclovía Suba. Entrena 2 veces por semana antes de rutas más exigentes.";
+      } else if (ejercicio === "1-2" || (caminar === "Sí" && bicicleta === "No")) {
+        mensaje += "🚴 Nivel Medio: Puedes hacer rutas como La Calera o El Cable. Mejora tu resistencia progresivamente.";
+      } else {
+        mensaje += "🏆 Nivel Alto: Prueba rutas exigentes como Sumapaz, El Toldo o Quinini. Mantén buena hidratación y alimentación.";
+      }
+
+      document.getElementById("resultado").innerText = mensaje;
+    });
+  </script>
+</body>
+</html>
